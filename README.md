@@ -1,6 +1,6 @@
-This is a Theatre Management System written in python using Flask and jinja templates. as a part of the DBMS course.
+This is a Theatre Management System written in python using Flask and jinja templates. as a part of the DBMS course
 <br>
-to run the server use the command.<br>
+to run the server use the command
 <br>
 <code>flask run</code> <br>
 <br>

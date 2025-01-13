@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Shows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .show-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between; /* Aligns content with space between */
+            align-items: flex-start; /* Aligns items to the top */
+        }
+        .show-details-container {
+            flex: 1;
+        }
+        .poster-img {
+            max-width: 150px;
+            margin-left: 20px; /* Space between the details and the poster */
+        }
+        .show-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .show-details {
+            margin-bottom: 5px;
+        }
+        .book-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .book-button:hover {
+            background-color: #0056b3;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .filter-container select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        function filterShows() {
+            const genre = document.getElementById("genre").value;
+            const title = document.getElementById("title").value;
+    
+            const url = new URL(window.location.href);
+            if(genre){
+                url.searchParams.set('genre', genre);
+            }else{
+                url.searchParams.delete('genre');
+            }
+            if(title) {
+                url.searchParams.set('title', title);
+            }
+            else{
+                url.searchParams.delete('title');
+            }
+            
+            window.location.href = url; // Navigate to the new URL with the selected genre
+        }
+    </script>
+</head>
+<body>
+    <h1>Movie Shows List</h1>
+
+    <div class="filter-container">
+        <label for="genre">Select Genre:</label>
+        <select name="genre" id="genre" onchange="filterShows()">
+            <option value="">All Genres</option>
+            {% for genre in genres %}
+                <option value="{{ genre }}" {% if genre == request.args.get('genre') %}selected{% endif %}>{{ genre }}</option>
+            {% endfor %}
+        </select>
+        <label for="title">Search Title:</label>
+    <input type="text" id="title" placeholder="Enter movie title" value="{{ request.args.get('title', '') }}">
+    <button onclick="filterShows()">Search</button>
+    </div>
+
+    <div id="shows">
+        {% for show in shows %}
+            <div class="show-container">
+                <div class="show-details-container">
+                    <div class="show-title">{{ show.movie.title }}</div>
+                    <div class="show-details">Duration: {{ show.movie.duration }} minutes</div>
+                    <div class="show-details">Genre: {{ show.movie.genre }}</div>
+                    <div class="show-details">Language: {{ show.movie.language }}</div>
+                    <div class="show-details">Rating: {{ show.movie.rating }}</div>
+                    <div class="show-details">Theatre: {{ show.screen.theatre.name }}</div>
+                    <div class="show-details">Screen: {{ show.screen.screen_number }}</div>
+                    <div class="show-details">Show Time: {{ show.show_time.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div class="show-details">Price:₹ {{ show.price }}</div>
+                    <a class="book-button" href="{{ url_for('book_movie', show_id=show.id) }}">Book Now</a>
+
+                    <!-- Conditionally show the Edit button if the user is an admin -->
+                    {% if current_user.is_admin %}
+                        <a class="book-button" href="{{ url_for('edit_shows', show_id=show.id) }}">Edit Show</a>
+                    {% endif %}
+                </div>
+                <img class="poster-img" src="{{ movie_posters[show.movie.title] }}" alt="Poster of {{ show.movie.title }}">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

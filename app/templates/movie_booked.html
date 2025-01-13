@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .success-message {
+            font-size: 24px;
+            color: #28a745; /* Bootstrap success color */
+            margin-bottom: 20px;
+        }
+        .details {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #0056b3; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="success-message">Booking Successful!</div>
+    <div class="details"><strong>{{ booking.customer.name }}</strong> You have successfully booked the movie: <strong>{{ booking.show.movie.title }}</strong>.</div>
+    <div class="details">Booking ID: <strong>{{ booking.id }}</strong></div>
+    <div class="details">On the date: <strong>{{ booking.show.show_time }}</strong></div>
+    <div>payment details</div>
+    <div class="details">payment id <strong>{{ payment.id }}</strong></div>
+    <div class="details">Total tickets <strong>{{ no_of_tickets }}</strong></div>
+    <div class="details">Total Amount <strong> ₹ {{ payment.amount }}</strong></div>
+    <a href="{{ url_for('movies') }}" class="back-link">Back to Movies</a>
+</div>
+
+</body>
+</html>

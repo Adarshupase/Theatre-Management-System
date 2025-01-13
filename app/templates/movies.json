@@ -1,0 +1,108 @@
+{
+    "genres": [
+        "Comedy",
+        "Fantasy",
+        "Crime",
+        "Drama",
+        "Music",
+        "Adventure",
+        "History",
+        "Thriller",
+        "Animation",
+        "Family",
+        "Mystery",
+        "Biography",
+        "Action",
+        "Film-Noir",
+        "Romance",
+        "Sci-Fi",
+        "War",
+        "Western",
+        "Horror",
+        "Musical",
+        "Sport"
+    ],
+    "movies": [
+        {
+            "id": 1,
+            "title": "The Lord of the Rings: The Return of the King",
+            
+            "posterUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fencrypted-tbn1.gstatic.com%2Fimages%3Fq%3Dtbn%3AANd9GcRZzgwhMq3caDZGr0DtXGEFIhpFNg8hv26jjflOdFdILRd6w8-p&psig=AOvVaw2Ovw1fihmCEB8L6in5I1UA&ust=1731344236023000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCLjm7YKe0okDFQAAAAAdAAAAABAEE"
+        },
+        {
+            "id": 2,
+            "title": "The Lord of the Rings: The Fellowship of the Ring",
+           
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYHuKZScdd6RHhzh-IDKga3wfTTd9cPEe1Y2JUI5gjvaxgJc3O"
+        },
+        {
+            "id": 3,
+            "title": "The Shawshank Redemption",
+            
+            "posterUrl": "https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SX300.jpg"
+        },
+        {
+            "id": 4,
+            "title": "The Hateful Eight",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTgYKNhK8HEB-hveKVs3l5Hv9seYraV6GfWJpjSCrXDrHGsxQqH"
+        },
+        {
+            "id": 5,
+            "title": "The Revenant",
+            
+            "posterUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQXUTGibEd0yESfOn4U6b9KqwYjLUKVI3QoCv36puzHfPvtZLMU"
+        },
+        {
+            "id": 6,
+            "title": "All Quiet on the Western Front",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ8xIJDTSj4aQqiWrJO8W9QyKhZQeMG1vMPGGxXd2pG59zE3BM"
+        },
+        {
+            "id": 7,
+            "title": "The Godfather",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTWmKJlXjXTiE9hkekFBy9WCRMf0eKZx2mrsgenlO-qzr9H7v0A"
+        },
+        {
+            "id": 8,
+            "title": "All Quiet on the Western Front",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRvjOZn11aAN8IagnNCndKjX5wnstn7yqVIVgD4y-1018aG1GEn"
+        },
+        {
+            "id": 9,
+            "title": "Forrest Gump",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ8xIJDTSj4aQqiWrJO8W9QyKhZQeMG1vMPGGxXd2pG59zE3BM"
+        },
+        {
+            "id": 10,
+            "title": "Fight Club",
+            
+            "posterUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQGBz-JQ37g1Ms86Zt0j8xlyCQGat56ylElHzv5hokMpixc7ACP"
+        },
+        {
+            "id": 11,
+            "title": "Blade Runner 2049",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbmOSGCPfMrpNm-7wm0MMmhXkHf7YR6cAYNcOuV_NFFOUfm8eS"
+        },
+        
+        {
+            "id": 11,
+            "title": "The Dark Knight Rises",
+            
+            "posterUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkc6wpewZHXmv8dyDOSwyXLhtPp1eYRXfoNjO2mVasS1KjK1Bf"
+        },
+        {
+            "id": 12,
+            "title": "1917",
+            
+            "posterUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ8xIJDTSj4aQqiWrJO8W9QyKhZQeMG1vMPGGxXd2pG59zE3BMb"
+
+        }
+
+    ]
+}

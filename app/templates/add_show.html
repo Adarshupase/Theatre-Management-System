@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Show</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Add Show</h1>
+        <form method="POST" action="{{ url_for('add_show') }}">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="theatre_id">Theatre:</label>
+                {{ form.theatre_id(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="screen_id">Screen:</label>
+                <select id="screen_id" name="screen_id" class="form-control">
+                    <option value="">Select a screen</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="movie_id">Movie:</label>
+                {{ form.movie_id(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="show_time">Show Time:</label>
+                {{ form.show_time(class="datetime form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:</label>
+                {{ form.price(class="form-control") }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Show</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    </div>
+
+    <script>
+    setTimeout(function() {
+    const flashMessages = document.querySelectorAll('.flashes li');
+    flashMessages.forEach(function(message) {
+      message.style.display = 'none';
+    });
+  }, 3000); 
+        $(document).ready(function() {
+            $('#theatre_id').change(function() {
+                var theatreId = $(this).val();
+                if (theatreId) {
+                    $.ajax({
+                        url: '/get_screens/' + theatreId,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#screen_id').empty();
+                            $('#screen_id').append('<option value="">Select a screen</option>');
+                            $.each(data, function(index, screen) {
+                                $('#screen_id').append('<option value="' + screen[0] + '">' + screen[1] + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#screen_id').empty();
+                    $('#screen_id').append('<option value="">Select a screen</option>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

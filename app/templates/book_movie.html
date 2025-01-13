@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book {{ show.movie.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            padding: 2em;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin: 1em;
+        }
+        h1 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .available-seats {
+            font-size: 1.2em;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 0.3em;
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.6em;
+            margin-top: 0.2em;
+            margin-bottom: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 0.85em;
+        }
+        button {
+            width: 100%;
+            padding: 0.7em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .form-group {
+            margin-bottom: 1.2em;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showId = {{ show.id }};
+            fetch(`/get_available_seats/${showId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const seatsInfo = document.getElementById('available-seats');
+                    seatsInfo.textContent = `Available Seats: ${data.available_seats}`;
+
+                    const numTicketsInput = document.querySelector('input[name="num_tickets"]');
+                    const errorMessage = document.getElementById('error-message');
+
+                    numTicketsInput.addEventListener('input', function () {
+                        const numTickets = parseInt(numTicketsInput.value) || 0;
+                        if (numTickets > data.available_seats) {
+                            errorMessage.textContent = 'Capacity is full! Please reduce the number of tickets.';
+                            errorMessage.style.display = 'block';
+                        }
+                        else if(numTickets < 0){
+                            errorMessage.textContent = 'Please choose a valid number of tickets';
+                            errorMessage.style.display = 'block';
+                        }
+                         else {
+                            errorMessage.style.display = 'none';
+                        }
+                    });
+                });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Movie: {{ show.movie.title }}</h1>
+        <div id="available-seats" class="available-seats"></div>
+        <div id="error-message" class="error" style="display: none;"></div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label>{{ form.name.label }}</label>
+                {{ form.name(size=32) }}
+                {% for error in form.name.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>{{ form.email.label }}</label>
+                {{ form.email(size=32) }}
+                {% for error in form.email.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>{{ form.phone_number.label }}</label>
+                {{ form.phone_number(size=15) }}
+                {% for error in form.phone_number.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>{{ form.num_tickets.label }}</label>
+                {{ form.num_tickets(size=5) }}
+                {% for error in form.num_tickets.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>{{ form.payment_method.label }}</label>
+                {{ form.payment_method() }}
+                {% for error in form.payment_method.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <button type="submit">{{ form.submit.label.text }}</button>
+        </form>
+        
+    </div>
+</body>
+</html>

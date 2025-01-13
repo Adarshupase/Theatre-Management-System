@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Show</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #28a745;
+            outline: none;
+            background-color: #fff;
+        }
+        .save-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .save-button:hover {
+            background-color: #218838;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        .alert-success {
+            background-color: #28a745;
+        }
+        .alert-danger {
+            background-color: #dc3545;
+        }
+        .delete-button {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>
+        Edit Show
+        <form action="{{ url_for('cancel_show', show_id=show.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="delete-button">Delete Show</button>
+        </form>
+    </h1>
+
+    <div class="form-container">
+        {% if message %}
+            <div class="alert {% if message_type == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                {{ message }}
+            </div>
+        {% endif %}
+        <form action="{{ url_for('edit_shows', show_id=show.id) }}" method="POST">
+            {{ form.hidden_tag() }} <!-- To include CSRF token -->
+            <div class="form-group">
+                <label for="show_time">Show Time:</label>
+                {{ form.show_time(class="form-control", aria_label="Show Time") }}
+            </div>
+            <button type="submit" class="save-button">Save Changes</button>
+        </form>
+    </div>
+
+</body>
+</html>

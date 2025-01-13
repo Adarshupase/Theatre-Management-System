@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .booking-container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .booking {
+            border-bottom: 1px solid #eaeaea;
+            padding: 15px 0;
+        }
+        .booking:last-child {
+            border-bottom: none;
+        }
+        .details {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .strong {
+            font-weight: bold;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .status-active {
+        color: green;
+        font-weight: bold;
+    }
+    .status-cancelled {
+        color: red;
+        font-weight: bold;
+    }
+    .status-expired {
+        color: blue;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('movies') }}" class="back-link">Back to Movies</a>
+    <h1>Your Bookings</h1>
+    <div class="booking-container">
+        {% for booking,payment in bookings %}
+            <div class="booking">
+                <div class="details">Booking ID: <span class="strong">{{ booking.id }}</span></div>
+                <div class="details">
+                    Booking status : 
+                    <span class="strong 
+                        {% if booking.status.name == 'active' %}status-active
+                        {% elif booking.status.name == 'cancelled' %}status-cancelled
+                        {% elif booking.status.name == 'expired' %}status-expired
+                        {% endif %}
+                    ">
+                        {{ booking.status.name }}
+                    </span>
+                </div>
+                <div class="details">Movie Title: <span class="strong">{{ booking.show.movie.title }}</span></div>
+                <div class="details">Show Time: <span class="strong">{{ booking.show.show_time.strftime('%Y-%m-%d %H:%M:%S') }}</span></div>
+                <div class="details">Total Tickets: <span class="strong">{{ (payment.amount/booking.show.price) | int }}</span></div>
+                
+            </div>
+        {% endfor %}
+    </div>
+
+   
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% if title %}
+    <title>{{ title }} -Theatre Management</title>
+    {% else %}
+    <title>Welcome to Microblog</title>
+    {% endif %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        div {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-right: 15px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        ul {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Theatre Management</h1>
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('movies') }}">Movies</a>
+        {% endif %}
+        {% if current_user.is_admin %}
+        <a href="{{ url_for('show_bookings') }}">Show Bookings</a>
+        <a href="{{ url_for('add_show') }}">Add show</a>
+        <a href="{{ url_for('add_movie') }}">Add Movie</a>
+        {% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>

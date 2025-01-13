@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            border-collapse: collapse;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        tr {
+            vertical-align: top;
+        }
+        td {
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 5px 0;
+        }
+        .avatar {
+            border-radius: 50%;
+            border: 2px solid #007BFF;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+        }
+        .add-show-link {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .show_bookings {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <div class="add-show-link">
+        <p><a href="{{ url_for('add_show') }}">Add Show</a></p>
+
+    </div>
+    <div class="show_bookings">
+        <p><a href="{{ url_for('show_bookings') }}">Show Bookings</a></p>
+
+    </div>
+    <table>
+        <tr>
+            <td><img class="avatar" src="{{ user.avatar(128) }}" alt="User Avatar"></td>
+            <td>
+                <h1>I'm a special snowflake</h1>
+                <h1>User: {{ user.username }}</h1>
+                {% if user.about_me %}
+                <p>{{ user.about_me }}</p>
+                {% endif %}
+                {% if user.last_seen %}
+                <p>Last seen on: {{ user.last_seen }}</p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <hr>
+    {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
+    {% if user == current_user %}
+    <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+    {% endif %}
+{% endblock %}

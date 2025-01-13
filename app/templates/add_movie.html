@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Add Movie</h1>
+        <form method="POST" action="{{ url_for('add_movie') }}">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="title">Movie Title:</label>
+                {{ form.title(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Duration (in minutes):</label>
+                {{ form.duration(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Genre:</label>
+                {{ form.genre(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="language">Language:</label>
+                {{ form.language(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                {{ form.rating(class="form-control") }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Movie</button>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
+
+    <script>
+    setTimeout(function() {
+        const flashMessages = document.querySelectorAll('.flashes li');
+        flashMessages.forEach(function(message) {
+          message.style.display = 'none';
+        });
+      }, 3000); 
+    </script>
+</body>
+</html>

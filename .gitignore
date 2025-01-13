@@ -3,4 +3,7 @@ venv/
 __pycache__/
 migrations/
 app/__pycache__/
-*.Zone.Identifier
+*:Zone.Identifier
+app.db
+log.txt
+
